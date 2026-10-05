@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Healthcare Platform: Plan and Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF3F5;--card:#fff;--ink:#12303B;--mute:#5B717B;--line:#D6E0E4;--teal:#0E7C86;--tealsoft:#DDF1F2;--amber:#B26A00;--ambersoft:#FFF1D6;--ok:#1F8A4C;--oksoft:#DFF3E7;--tip:#E8EEFB;--tipink:#2B3F86;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1B20;--card:#142A31;--ink:#E6F0F2;--mute:#92A9B1;--line:#25414A;--teal:#4FC3CC;--tealsoft:#17383D;--amber:#F0B45A;--ambersoft:#3A2C12;--ok:#5ED08A;--oksoft:#15341F;--tip:#1B2548;--tipink:#B5C4FF}}
+:root[data-theme="dark"]{--bg:#0D1B20;--card:#142A31;--ink:#E6F0F2;--mute:#92A9B1;--line:#25414A;--teal:#4FC3CC;--tealsoft:#17383D;--amber:#F0B45A;--ambersoft:#3A2C12;--ok:#5ED08A;--oksoft:#15341F;--tip:#1B2548;--tipink:#B5C4FF}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif}
+header{padding:20px 20px 4px;max-width:1080px;margin:auto}
+h1{font-size:22px;margin:0 0 4px}header p{margin:0;color:var(--mute);max-width:72ch}
+.tabs{max-width:1080px;margin:14px auto 0;padding:0 20px;display:flex;gap:8px;overflow-x:auto}
+.tabs button{all:unset;cursor:pointer;padding:9px 18px;border-radius:99px;border:1.5px solid var(--line);font-weight:600;white-space:nowrap;background:var(--card)}
+.tabs button.on{background:var(--teal);color:var(--bg);border-color:var(--teal)}
+.wrap{max-width:1080px;margin:auto;padding:14px 20px 40px;display:grid;grid-template-columns:220px 1fr;gap:20px}
+nav{display:flex;flex-direction:column;gap:6px;align-self:start;position:sticky;top:12px}
+nav button{all:unset;cursor:pointer;padding:9px 12px;border-radius:10px;color:var(--mute);display:flex;gap:10px;align-items:center;font-weight:500;font-size:15px}
+nav button span{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;flex:none}
+nav button.on{background:var(--card);color:var(--ink);font-weight:700;box-shadow:inset 3px 0 0 var(--teal)}
+nav button.on span{background:var(--teal);color:var(--bg);border-color:var(--teal)}
+nav button.done span{background:var(--ok);color:#fff;border-color:var(--ok)}
+button:focus-visible,.row:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+main{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;min-height:500px}
+h2{margin:0 0 4px;font-size:22px}.sub{color:var(--mute);margin:0 0 16px}
+.tip{background:var(--tip);color:var(--tipink);border-radius:10px;padding:10px 14px;font-size:14px;margin:16px 0}
+.tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:99px;background:var(--tealsoft);color:var(--teal);font-weight:600;margin-right:4px}
+.tag.a{background:var(--ambersoft);color:var(--amber)}.tag.g{background:var(--oksoft);color:var(--ok)}
+.btn{all:unset;cursor:pointer;background:var(--teal);color:var(--bg);padding:11px 20px;border-radius:10px;font-weight:700;display:inline-block}
+.btn.alt{background:transparent;color:var(--teal);border:1.5px solid var(--teal)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.row{display:flex;gap:14px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--card)}
+.row .g{flex:1}.row small{color:var(--mute);display:block}.row .t{font-weight:700;min-width:62px}
+.av{width:46px;height:46px;border-radius:50%;background:var(--tealsoft);color:var(--teal);display:grid;place-items:center;font-weight:700;flex:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stats div,.sum{background:var(--bg);border-radius:12px;padding:12px}
+.stats b{font-size:22px;display:block}.stats span{font-size:13px;color:var(--mute)}
+.sum div{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.box{border:1px solid var(--line);border-radius:12px;padding:14px}.box h3{margin:0 0 6px;font-size:15px}
+.box ul{margin:0;padding-left:18px;color:var(--mute);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chips span{font-size:12.5px;padding:4px 10px;border-radius:99px;border:1.5px solid var(--line);color:var(--mute)}
+.chips span.d{background:var(--oksoft);color:var(--ok);border-color:var(--ok)}
+.chips span.c{background:var(--teal);color:var(--bg);border-color:var(--teal);font-weight:700}
+.video{background:#0A1418;border-radius:14px;aspect-ratio:16/9;position:relative;display:grid;place-items:center;color:#fff}
+.video .big{width:80px;height:80px;border-radius:50%;background:#2C5560;display:grid;place-items:center;font-size:26px;font-weight:700}
+.video .live{position:absolute;left:12px;top:12px;font-size:13px;background:#00000066;padding:4px 10px;border-radius:99px}
+.ph{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ph .box b{display:block;margin-bottom:4px}
+.ph .box.on{border-color:var(--teal);box-shadow:inset 0 3px 0 var(--teal)}
+.ph .box{cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}th{color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s}
+.toast.on{opacity:1}
+@media(max-width:780px){.wrap{grid-template-columns:1fr}nav{flex-direction:row;overflow-x:auto;position:static}nav button{white-space:nowrap}.two,.ph{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+<h1>One platform, four journeys</h1>
+<p>A project plan and clickable prototype for the healthcare marketplace. Pick a view below, then step through it. All names, prices and data are made up.</p>
+</header>
+<div class="tabs" id="tabs" role="tablist"></div>
+<div class="wrap">
+<nav id="nav" aria-label="Steps"></nav>
+<main id="main"></main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+var MT=['Requested','Documents pending','Medical review','Hospital matched','Quote received','Patient review','Accepted','Payment','Travel planning','Arrival','Treatment','Discharge','Follow-up','Completed'];
+var mtI=4;
+function tip(t){return '<div class="tip"><b>Behind the scenes:</b> '+t+'</div>'}
+function btn(l,fn,alt){return '<button class="btn'+(alt?' alt':'')+'" onclick="'+fn+'">'+l+'</button>'}
+function row(t,a,b,tags){return '<div class="row"><div class="t">'+t+'</div><div class="g"><b>'+a+'</b><small>'+b+'</small></div>'+(tags||'')+'</div>'}
+function sum(a){return '<div class="sum">'+a.map(function(x){return '<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>'}).join('')+'</div>'}
+var V={
+plan:{label:'The plan',steps:[
+{n:'Roadmap',h:function(){return '<h2>Build plan in four phases</h2><p class="sub">Each phase delivers something people can use. Click a phase to see what it contains.</p><div class="ph" id="ph"></div><div id="phd" class="box" style="margin-top:14px"></div>'+tip('we start as one modular application (a "modular monolith") and split it into separate services only when traffic demands it. This keeps early cost and risk low.')}},
+{n:'Who uses it',h:function(){return '<h2>Who uses the platform</h2><p class="sub">Each person sees only what their role allows.</p><div class="two"><div class="box"><h3>Patient</h3><ul><li>Find doctors and hospitals</li><li>Book and pay</li><li>See prescriptions and records</li></ul></div><div class="box"><h3>Doctor</h3><ul><li>Manage schedule</li><li>Run video visits</li><li>Write prescriptions</li></ul></div><div class="box"><h3>Hospital</h3><ul><li>Manage doctors and slots</li><li>Publish treatment packages</li><li>Receive international cases</li></ul></div><div class="box"><h3>Medical tourism coordinator</h3><ul><li>Manage cases end to end</li><li>Match hospitals, plan travel</li><li>Keep the patient updated</li></ul></div></div>'+tip('access is controlled by roles (RBAC). Admins also get limited roles, so no single account can see everything.')}},
+{n:'Safety and trust',h:function(){return '<h2>Privacy and safety built in</h2><p class="sub">Health data is sensitive, so protection is part of every screen.</p><div class="two"><div class="box"><h3>Patient control</h3><ul><li>Patients choose who sees their reports</li><li>Every access is logged</li></ul></div><div class="box"><h3>Data protection</h3><ul><li>Encrypted storage and video</li><li>Two-step sign-in (MFA)</li></ul></div><div class="box"><h3>Country rules</h3><ul><li>USA: HIPAA-ready design</li><li>India: DPDP Act and telemedicine guidelines</li></ul></div><div class="box"><h3>AI limits</h3><ul><li>Helps with search and summaries</li><li>Never diagnoses</li></ul></div></div>'+tip('country rules live in a configuration layer, so adding a new country means adding settings, not rewriting the app. Legal review is advised for cross-border care and referral fees.')}}]},
+patient:{label:'Patient',steps:[
+{n:'Sign up',h:function(){return '<h2>Create an account</h2><p class="sub">Only basic details. The form adapts to India or the USA.</p>'+sum([['Name','Arjun Mehta'],['Country','India'],['Mobile','+91 98765 43210']])+tip('country configuration layer plus one-time-code login (MFA).')}},
+{n:'Find a doctor',h:function(){return '<h2>Find a doctor</h2><p class="sub">Search "heart" and see verified doctors, hospitals and treatments together.</p>'+row('<span class="av">MR</span>','Dr. Meera Rao','Cardiologist, 18 yrs, City Heart Hospital','<span class="tag g">Verified</span><b>₹800</b>')+row('<span class="av">VS</span>','Dr. Vikram Shah','Cardiologist, 12 yrs, Sunrise Medical Centre','<span class="tag g">Verified</span><b>₹600</b>')+tip('one unified search covers doctors, hospitals and treatments.')}},
+{n:'Book and pay',h:function(){return '<h2>Pick a time and pay</h2><p class="sub">Taken slots are greyed out so nobody gets double booked.</p><div class="chips"><span>Tue 9:30 AM</span><span style="text-decoration:line-through">10:30 AM</span><span class="c">Tue 11:00 AM</span><span>2:00 PM</span></div>'+sum([['Consultation fee','₹800'],['Platform fee','₹40'],['Total','₹840 via UPI']])+tip('slots are held while you pay (concurrency control). Payments go through a separate gateway, apart from medical data.')}},
+{n:'Consult',h:function(){return '<h2>Video consultation</h2><p class="sub">Join from the confirmation message. No download.</p><div class="video"><span class="live">● Live</span><div class="big">MR</div></div>'+tip('encrypted video, restricted to the two people on the appointment.')}},
+{n:'After the visit',h:function(){return '<h2>Prescription and next steps</h2><p class="sub">Everything lands in your health dashboard.</p>'+sum([['Prescription','Aspirin 75 mg, Atorvastatin 20 mg'],['Receipt','Paid'],['Next','Follow-up in 2 weeks']])+tip('records are stored encrypted with versioning. Sharing needs the patient\'s consent each time.')}}]},
+doctor:{label:'Doctor',steps:[
+{n:'Today',h:function(){return '<h2>Today\'s schedule</h2><p class="sub">Good morning, Dr. Rao.</p><div class="stats"><div><b>6</b><span>Appointments</span></div><div><b>4</b><span>Video visits</span></div><div><b>₹7,200</b><span>This week</span></div></div>'+row('10:00','Arjun Mehta, 54','Chest discomfort, follow-up','<span class="tag">Video</span>')+row('10:30','Sarah Johnson, 41','New patient, blood pressure','<span class="tag">Video</span>')+tip('doctors sign in with MFA and see only patients they have an appointment with.')}},
+{n:'Prepare',h:function(){return '<h2>Get ready for Arjun</h2><p class="sub">Symptoms and reports in one place.</p><div class="two"><div class="box"><h3>Patient said</h3><ul><li>Chest pressure on stairs</li><li>Allergy: Penicillin</li></ul></div><div class="box"><h3>Shared reports</h3><ul><li>ECG (12 Sept)</li><li>Blood test (8 Sept)</li></ul></div></div>'+tip('reports are visible only because the patient gave consent. Every view is saved in an audit log.')}},
+{n:'Notes and prescription',h:function(){return '<h2>Notes and prescription</h2><p class="sub">Write, sign and send in one go.</p>'+sum([['Notes','Exertional chest pressure, BP 148/92'],['Medicine 1','Aspirin 75 mg, 30 days'],['Medicine 2','Atorvastatin 20 mg, 30 days']])+tip('the system checks allergies and drug interactions, and adds your digital signature.')}},
+{n:'Refer abroad',h:function(){return '<h2>Need advanced treatment?</h2><p class="sub">Refer the patient to Medical Tourism in one click. A coordinator takes over from there.</p>'+sum([['Patient','Arjun Mehta'],['Suggested','Cardiac evaluation, abroad option'],['Status','Not sent']])+'<div class="actions">'+btn('Send referral','toast(\'Case MT-2026-000123 created\')')+'</div>'+tip('this creates a medical tourism case with a Case ID and shares only the reports the patient approves.')}}]},
+hospital:{label:'Hospital',steps:[
+{n:'Dashboard',h:function(){return '<h2>City Heart Hospital</h2><p class="sub">Your hospital at a glance.</p><div class="stats"><div><b>42</b><span>Appointments today</span></div><div><b>18</b><span>Doctors</span></div><div><b>5</b><span>International cases</span></div></div>'+row('9:00','Cardiology OPD','12 booked, 3 slots free','<span class="tag g">On track</span>')+row('11:00','Orthopedics OPD','9 booked, 1 slot free','<span class="tag a">Almost full</span>')+tip('hospital staff have their own roles, for example front desk or finance, each with limited access.')}},
+{n:'Doctors and slots',h:function(){return '<h2>Manage doctors and availability</h2><p class="sub">Add doctors, set weekly slots and consultation fees.</p><table><tr><th>Doctor</th><th>Department</th><th>Status</th></tr><tr><td>Dr. Meera Rao</td><td>Cardiology</td><td><span class="tag g">Verified</span></td></tr><tr><td>Dr. Rahul Nair</td><td>Orthopedics</td><td><span class="tag a">Documents pending</span></td></tr></table><div class="actions">'+btn('+ Add doctor','toast(\'Invite sent. Doctor must upload licence for verification\')',1)+'</div>'+tip('new doctors go through a verification check before they appear in search.')}},
+{n:'Packages',h:function(){return '<h2>Treatment packages</h2><p class="sub">Publish clear package prices for international patients.</p>'+sum([['Bypass surgery (CABG)','₹4.5 lakh, 10 days'],['Knee replacement','₹2.8 lakh, 7 days'],['Heart check-up','₹18,000, 1 day']])+tip('packages feed the comparison screens patients and coordinators see in Medical Tourism.')}},
+{n:'International case',h:function(){return '<h2>Incoming international case</h2><p class="sub">Review the reports and send an estimate.</p>'+sum([['Case ID','MT-2026-000123'],['Patient','From USA, cardiac surgery'],['Reports','ECG, echo, blood tests']])+'<div class="actions">'+btn('Send estimate','toast(\'Estimate sent to coordinator\')')+'</div>'+tip('the hospital sees only the documents the patient allowed. The case moves forward through set stages, so nothing gets lost.')}}]},
+tourism:{label:'Medical tourism',steps:[
+{n:'Request',h:function(){return '<h2>Request treatment abroad</h2><p class="sub">Tell us what you need and upload reports.</p>'+sum([['I live in','United States'],['Treatment in','India'],['Treatment','Cardiac surgery'],['Reports','3 files uploaded']])+tip('files are encrypted and shared only with people the patient approves.')}},
+{n:'Case tracker',h:function(){return '<h2>Case MT-2026-000123</h2><p class="sub">The coordinator moves the case through each stage. Try it.</p><div class="chips" id="chips"></div><div class="actions">'+btn('Move to next stage','nextMT()')+'</div>'+tip('this is a state machine: a case can only move one stage at a time, and every change is logged and notifies the patient.')}},
+{n:'Compare',h:function(){return '<h2>Compare hospital quotes</h2><p class="sub">Side by side, so the decision is clear.</p><table><tr><th></th><th>City Heart, India</th><th>Sunrise, India</th><th>Local US option</th></tr><tr><td>Surgery</td><td>$7,500</td><td>$6,800</td><td>$95,000</td></tr><tr><td>Stay</td><td>10 days</td><td>9 days</td><td>5 days</td></tr><tr><td>Accredited</td><td>Yes</td><td>Yes</td><td>Yes</td></tr></table>'+tip('quotes are estimates from hospitals. Final medical decisions stay with licensed doctors.')}},
+{n:'Accept and pay',h:function(){return '<h2>Accept and pay deposit</h2><p class="sub">Pay in USD. The hospital is paid in INR.</p>'+sum([['Hospital deposit','$2,000'],['Coordinator fee','$300'],['Total today','$2,300']])+'<div class="actions">'+btn('Accept and pay deposit','toast(\'Deposit received. Receipt sent.\')')+'</div>'+tip('multi-currency payments with an invoice, receipt and refund status for every transaction.')}},
+{n:'Travel plan',h:function(){return '<h2>Your itinerary</h2><p class="sub">Visa help, flights, stay and pickup in one list.</p>'+row('Day 1','Airport pickup, hotel check-in','Bengaluru','<span class="tag g">Confirmed</span>')+row('Day 2','Hospital admission','City Heart Hospital','<span class="tag">Scheduled</span>')+row('Day 10','Discharge and follow-up plan','Return flight booked','<span class="tag">Scheduled</span>')+tip('after you return, follow-up visits can happen by video through the same platform.')}}]}
+};
+var tab='plan',step=0;
+var phases=[['Phase 1: Core booking','Patient sign-up, doctor and hospital search, booking, video consultation, payments, dashboards for patient, doctor, hospital and admin.'],['Phase 2: Records','Medical records, prescriptions, diagnostic tests, insurance, nearby hospitals, richer notifications.'],['Phase 3: Medical tourism','Case management, international patients, treatment packages, travel coordination, multi-country payments.'],['Phase 4: Smart features','AI-assisted search, document summaries, provider matching, translation, analytics, new countries.']];
+var phIdx=0;
+function $(i){return document.getElementById(i)}
+function drawTabs(){$('tabs').innerHTML=Object.keys(V).map(function(k){return '<button role="tab" class="'+(k===tab?'on':'')+'" onclick="setTab(\''+k+'\')">'+V[k].label+'</button>'}).join('')}
+function setTab(k){tab=k;step=0;render()}
+function setStep(i){step=i;render()}
+function render(){
+ drawTabs();var s=V[tab].steps;
+ $('nav').innerHTML=s.map(function(x,i){return '<button class="'+(i===step?'on':i<step?'done':'')+'" onclick="setStep('+i+')"><span>'+(i+1)+'</span>'+x.n+'</button>'}).join('');
+ var h=s[step].h();
+ h+='<div class="actions">'+(step>0?btn('Back','setStep('+(step-1)+')',1):'')+(step<s.length-1?btn('Next','setStep('+(step+1)+')'):btn('Back to start','setStep(0)',1))+'</div>';
+ $('main').innerHTML=h;
+ if(tab==='plan'&&step===0)drawPh();
+ if(tab==='tourism'&&step===1)drawMT();
+ window.scrollTo({top:0});
+}
+function drawPh(){$('ph').innerHTML=phases.map(function(p,i){return '<div class="box'+(i===phIdx?' on':'')+'" onclick="phIdx='+i+';drawPh()"><b>'+p[0].split(':')[0]+'</b><small>'+p[0].split(':')[1]+'</small></div>'}).join('');$('phd').innerHTML='<b>'+phases[phIdx][0]+'</b><p style="margin:6px 0 0;color:var(--mute)">'+phases[phIdx][1]+'</p>'}
+function drawMT(){$('chips').innerHTML=MT.map(function(m,i){return '<span class="'+(i<mtI?'d':i===mtI?'c':'')+'">'+m+'</span>'}).join('')}
+function nextMT(){if(mtI<MT.length-1){mtI++;drawMT();toast('Patient notified: '+MT[mtI])}else toast('Case already completed')}
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},2400)}
+render();
+</script>
+</body>
+</html>
